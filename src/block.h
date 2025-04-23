@@ -1,16 +1,17 @@
-//
-// Created by krist on 2025. 04. 23..
-//
+#pragma once
+#include <vector>
+#include <map>
+#include "position.h"
+#include "colors.h"
 
-#ifndef BLOCK_H
-#define BLOCK_H
-
-
-
-class block {
-
+class Block {
+public:
+    Block();
+    void Draw();
+    int id;
+    std::map<int, std::vector<Position>> cells;
+private:
+    int cellSize;
+    int rotationState;
+    std::vector<Color> colors;
 };
-
-
-
-#endif //BLOCK_H

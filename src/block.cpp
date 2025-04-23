@@ -1,5 +1,14 @@
-//
-// Created by krist on 2025. 04. 23..
-//
-
 #include "block.h"
+
+Block::Block() {
+    cellSize = 30;
+    rotationState = 0;
+    colors = GetCellColors();
+}
+
+void Block::Draw() {
+    std::vector<Position> tiles = cells[rotationState];
+    for (const Position item: tiles) {
+        DrawRectangle(item.column * cellSize + 1, item.row * cellSize + 1, cellSize - 1, cellSize - 1, colors[id]);
+    }
+}

@@ -1,16 +1,8 @@
-//
-// Created by krist on 2025. 04. 23..
-//
+#pragma once
 
-#ifndef POSITION_H
-#define POSITION_H
-
-
-
-class position {
-
+class Position {
+public:
+    Position(int row, int column);
+    int row;
+    int column;
 };
-
-
-
-#endif //POSITION_H

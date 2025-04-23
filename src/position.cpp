@@ -1,5 +1,6 @@
-//
-// Created by krist on 2025. 04. 23..
-//
-
 #include "position.h"
+
+Position::Position(int row, int column) {
+    this -> row = row;
+    this -> column = column;
+}
