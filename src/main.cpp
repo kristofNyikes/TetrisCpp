@@ -9,6 +9,7 @@ int main() {
     Game game;
 
     while (!WindowShouldClose()) {
+        game.HandleInput();
         BeginDrawing();
         ClearBackground(darkBlue);
 
