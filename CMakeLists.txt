@@ -13,6 +13,8 @@ add_executable(TetrisCpp src/main.cpp
         src/position.h
         src/colors.cpp
         src/colors.h
-        src/blocks.cpp)
+        src/blocks.cpp
+        src/game.cpp
+        src/game.h)
 
 target_link_libraries(TetrisCpp PRIVATE raylib)
