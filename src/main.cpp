@@ -23,6 +23,7 @@ int main() {
     Game game;
 
     while (!WindowShouldClose()) {
+        UpdateMusicStream(game.music);
         game.HandleInput();
         if (EventTrigger(0.2)) {
             game.MoveBlockDown();
