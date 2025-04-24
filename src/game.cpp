@@ -65,6 +65,7 @@ void Game::MoveBlockDown() {
     currentBlock.Move(1, 0);
     if (IsBlockOutside()) {
         currentBlock.Move(-1, 0);
+        LockBlock();
     }
 }
 
@@ -84,4 +85,13 @@ void Game::RotateBlock() {
     if (IsBlockOutside()) {
         currentBlock.UndoRotation();
     }
+}
+
+void Game::LockBlock() {
+    std::vector<Position> tiles = currentBlock.GetCellPositions();
+    for (const auto &[row, column]: tiles) {
+        grid.grid[row][column] = currentBlock.id;
+    }
+    currentBlock = nextBlock;
+    nextBlock = GetRandomBlock();
 }
