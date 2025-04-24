@@ -6,6 +6,7 @@ Game::Game() {
     blocks = GetAllBlocks();
     currentBlock = GetRandomBlock();
     nextBlock = GetRandomBlock();
+    gameOver = false;
 }
 
 Block Game::GetRandomBlock() {
@@ -29,6 +30,10 @@ void Game::Draw() {
 
 void Game::HandleInput() {
     int keyPressed = GetKeyPressed();
+    if (gameOver && keyPressed != 0) {
+        gameOver = false;
+        Reset();
+    }
     switch (keyPressed) {
         case KEY_LEFT:
             MoveBlockLeft();
@@ -48,24 +53,30 @@ void Game::HandleInput() {
 }
 
 void Game::MoveBlockLeft() {
-    currentBlock.Move(0, -1);
-    if (IsBlockOutside() || !BlockFits()) {
-        currentBlock.Move(0, 1);
+    if (!gameOver) {
+        currentBlock.Move(0, -1);
+        if (IsBlockOutside() || !BlockFits()) {
+            currentBlock.Move(0, 1);
+        }
     }
 }
 
 void Game::MoveBlockRight() {
-    currentBlock.Move(0, 1);
-    if (IsBlockOutside() || !BlockFits()) {
-        currentBlock.Move(0, -1);
+    if (!gameOver) {
+        currentBlock.Move(0, 1);
+        if (IsBlockOutside() || !BlockFits()) {
+            currentBlock.Move(0, -1);
+        }
     }
 }
 
 void Game::MoveBlockDown() {
-    currentBlock.Move(1, 0);
-    if (IsBlockOutside() || !BlockFits()) {
-        currentBlock.Move(-1, 0);
-        LockBlock();
+    if (!gameOver) {
+        currentBlock.Move(1, 0);
+        if (IsBlockOutside() || !BlockFits()) {
+            currentBlock.Move(-1, 0);
+            LockBlock();
+        }
     }
 }
 
@@ -81,9 +92,11 @@ bool Game::IsBlockOutside() {
 }
 
 void Game::RotateBlock() {
-    currentBlock.Rotate();
-    if (IsBlockOutside()) {
-        currentBlock.UndoRotation();
+    if (!gameOver) {
+        currentBlock.Rotate();
+        if (IsBlockOutside()) {
+            currentBlock.UndoRotation();
+        }
     }
 }
 
@@ -93,6 +106,9 @@ void Game::LockBlock() {
         grid.grid[row][column] = currentBlock.id;
     }
     currentBlock = nextBlock;
+    if (!BlockFits()) {
+        gameOver = true;
+    }
     nextBlock = GetRandomBlock();
     grid.ClearFullRows();
 }
@@ -105,4 +121,11 @@ bool Game::BlockFits() {
         }
     }
     return true;
+}
+
+void Game::Reset() {
+    grid.Initialize();
+    blocks = GetAllBlocks();
+    currentBlock = GetRandomBlock();
+    nextBlock = GetRandomBlock();
 }
