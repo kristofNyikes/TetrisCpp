@@ -26,7 +26,18 @@ std::vector<Block> Game::GetAllBlocks() {
 
 void Game::Draw() {
     grid.Draw();
-    currentBlock.Draw();
+    currentBlock.Draw(11, 11);
+    switch (nextBlock.id) {
+        case 3:
+            nextBlock.Draw(255, 290);
+            break;
+        case 4:
+            nextBlock.Draw(255, 280);
+            break;
+        default:
+            nextBlock.Draw(270, 270);
+            break;
+    }
 }
 
 void Game::HandleInput() {
@@ -44,7 +55,7 @@ void Game::HandleInput() {
             break;
         case KEY_DOWN:
             MoveBlockDown();
-        UpdateScore(0, 1);
+            UpdateScore(0, 1);
             break;
         case KEY_UP:
             RotateBlock();
